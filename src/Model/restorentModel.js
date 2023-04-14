@@ -6,17 +6,20 @@ const restorentSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    imageResto:{
+        type: String,
+        required: true
+    },
     phone:{
         type:String,
         required:true,
         unique:true
     },address:{
         area:String,
-        streat:String,
-        Landmark:String,
+        street:String,
         city:String,
         pincode:String
     },
 },{timestamp:true})
 
-module.exports = mongoose.model('Restorent',restorentSchema)
+module.exports = mongoose.model('Restorents',restorentSchema)

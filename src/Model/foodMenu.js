@@ -6,6 +6,10 @@ const foodMenuSchema = new mongoose.Schema({
         type:ObjectId,
         ref:"Restorent"
     },
+    imageManu:{
+        type: String,
+        required: true
+    },
     name:{
         type:String,
         required:true,
@@ -14,7 +18,7 @@ const foodMenuSchema = new mongoose.Schema({
     },
     type:{
         type:String,
-        enum:["Break-Fast","Lunch","Snecks","Dinner"]
+        enum:["Break-Fast","Lunch","Snacks","Dinner"]
     }
 },{timestamp:true})
 

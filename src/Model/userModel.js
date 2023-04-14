@@ -14,11 +14,11 @@ const usersSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true
-    },address:{
-        house:String,
+    },
+    address:{
         area:String,
-        streat:String,
-        Landmark:String,
+        street:String,
+        landmark:String,
         pincode:String
     },
 },{timestamp:true})

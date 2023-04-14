@@ -22,8 +22,8 @@ const CreateUser=async(req,res)=>{
 
         if(!address) return res.status(400).send({ status: false, message: "please enter valid street name" })
         if(typeof(address)!="object") return res.status(400).send({ status: false, message: "address should be an object" })
-        let { house, area, street, city, pincode } = address
-        if (house != undefined &&  typeof (house) != "string" && house.trim() == "") return res.status(400).send({ status: false, message: "please enter valid street name" })
+        let { landmark, area, street, city, pincode } = address
+        if (landmark != undefined &&  typeof (landmark) != "string" && landmark.trim() == "") return res.status(400).send({ status: false, message: "please enter valid street name" })
         if (area!= undefined && typeof (area) != "string" && area.trim() == "") return res.status(400).send({ status: false, message: "please enter valid city" })
         if (street != undefined &&  typeof (street) != "string" && street.trim() == "") return res.status(400).send({ status: false, message: "please enter valid street name" })
         if (city != undefined && typeof (city) != "string" && city.trim() == "") return res.status(400).send({ status: false, message: "please enter valid city" })
@@ -39,28 +39,38 @@ const LoginUser = async(req,res)=>{
     try {
         let userData = req.body;
         if (Object.keys(userData).length == 0) return res.status(400).send({ status: false, message: "please enter some data..." })
-        if (Object.keys(userData).length > 2) return res.status(400).send({ status: false, message: "enter only Email and Phone" })
-        let { email, phone } = userData;
+        if (Object.keys(userData).length > 2) return res.status(400).send({ status: false, message: "enter only Email or Phone" })
 
-        if (!email || (typeof (email) == "string" && email.trim() == "")) return res.status(400).send({ status: false, message: "Please provide email" })
+        // if (!email || (typeof (email) == "string" && email.trim() == "") || !(phone || (typeof (phone) == "string" && phone.trim() == ""))) return res.status(400).send({ status: false, message: "Please provide email or phone number" })
+        let {email,phone}=userData
 
-        if (!phone || (typeof (phone) == "string" && phone.trim() == "")) return res.status(400).send({ status: false, message: "please enter phone" })
-
-        let isUserExist = await UserModel.findOne($or[{ email: email.trim()}, {phone: phone.trim()}])
+        let isUserExist = await UserModel.findOne({$or:[{ email: email}, {phone: phone}]})
         if (!isUserExist) return res.status(404).send({ status: false, message: "user Not found" })
 
-        let token = jwt.sign({ userId: isUserExist._id, exp: (Math.floor(Date.now() / 1000)) + 84600 }, "FSCO");
+        let token = jwt.sign({ userId: isUserExist._id, exp:(Math.floor(Date.now() / 1000)) + 84600}, "FSCO");
         console.log("date", Date.now())
         const date = new Date();
         console.log(`Token Generated at:- ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
 
+        // 
         res.setHeader("x-api-key", token);
-        res.status(200).send({ status: true, message:"success",data:token })
+        res.status(200).send({ status: true, message:"success",UserId:isUserExist._id,data:token })
 
     }
-    catch(error){ 
+    catch(error){
         return res.status(500).send({ status: false, error: error.message }) 
     }
 }
 
-module.exports = { CreateUser, LoginUser }
+const GetuserData = async(req,res)=>{
+    try{
+        let data=req.body
+        let getdata = await UserModel.findOne({phone:data})
+        return res.status(200).send({status:True,data:getdata})
+
+    }catch(err){
+        return res.status(500).send({status:false,Error:err.message})
+    }
+}
+
+module.exports = { CreateUser, LoginUser ,GetuserData }
