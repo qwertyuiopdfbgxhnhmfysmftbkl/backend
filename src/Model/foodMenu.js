@@ -16,7 +16,10 @@ const foodMenuSchema = new mongoose.Schema({
     },price:{
         type:String  
     },
-    type:{
+    foodType:{
+        type:String,
+        enum:["Non-Veg","Veg"]
+    },type:{
         type:String,
         enum:["Break-Fast","Lunch","Snacks","Dinner"]
     }

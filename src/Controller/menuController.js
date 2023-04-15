@@ -40,7 +40,7 @@ const getFoodName = async(req,res)=>{
     try{ 
         let Name=req.params.name
         let title = {$regex:Name, $options: 'i' };
-        let Menudata = await menuModel.findOne({name:title})
+        let Menudata = await menuModel.find({name:title})
         if(!Menudata) return res.status(400).send({status:false,message:"No data Found"})
         res.status(200).send({status:true,data:Menudata})
     }catch(err){

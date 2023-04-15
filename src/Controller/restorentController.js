@@ -58,7 +58,7 @@ const getRestorentByname = async(req,res)=>{
         console.log(typeof(Name))
         console.log(Name)
         let title = {$regex:Name, $options: 'i' };
-        let Responsedata = await restorent.findOne({name:title})
+        let Responsedata = await restorent.find({name:title})
         if(!Responsedata) return res.status(400).send({status:false,message:"No data Found"})
         res.status(200).send({status:true,data:Responsedata})
     }

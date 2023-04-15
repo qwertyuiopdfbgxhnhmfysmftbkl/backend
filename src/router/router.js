@@ -26,7 +26,6 @@ router.get('/getfoodByname/:name',getFoodName)
 //_______________________________________________________Cart API'S__________________________________________
 router.post('/addInCart/:userId', createCart)
 router.get('/getCart/:userId', getCart)
-router.post('/updateCart/:userId', updateCart)
 router.post('/deleteCart/:userId', deleteCart)
 
 //_______________________________________________________Order API'S__________________________________________
