@@ -13,6 +13,20 @@ app.use(express.json())
 
 app.use(multer().any())
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    );
+    res.setHea
+        "Access-Control-Allow-Headers",
+        "X-Requested-With,content-type"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    next();
+});
+
 mongoose.connect("mongodb+srv://abhinav:abhi123@cluster0.qicwtqo.mongodb.net/FSOC",
 {dbName:"FSOC"},
 {useNewUrlParser:true})
@@ -21,6 +35,6 @@ mongoose.connect("mongodb+srv://abhinav:abhi123@cluster0.qicwtqo.mongodb.net/FSO
 
 app.use('/', route)
 
-app.listen(3000, function() {
+app.listen(process.env.PORT||3000, function() {
     console.log('Express app running on port ' +  3000)
 });
