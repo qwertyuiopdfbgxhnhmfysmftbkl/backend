@@ -51,7 +51,7 @@ let createCart = async (req, res) => {
                 cart.totalItems += 1;
             } else {
                 // Product already in cart, update quantity
-                cart.items[itemIndex].quantity += quantity;
+                cart.items[itemIndex].quantity = quantity;
                 cart.totalPrice += product.price * quantity;
             }
 

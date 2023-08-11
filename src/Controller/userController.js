@@ -20,16 +20,16 @@ const CreateUser=async(req,res)=>{
         let isEmailExist=await UserModel.findOne({email:email})
         if(isEmailExist) return res.status(400).send({ status: false, message: "Email is already exist" })
 
-        if(!address) return res.status(400).send({ status: false, message: "please enter valid street name" })
-        if(typeof(address)!="object") return res.status(400).send({ status: false, message: "address should be an object" })
-        let { landmark, area, street, city, pincode } = address
-        if (landmark != undefined &&  typeof (landmark) != "string" && landmark.trim() == "") return res.status(400).send({ status: false, message: "please enter valid street name" })
-        if (area!= undefined && typeof (area) != "string" && area.trim() == "") return res.status(400).send({ status: false, message: "please enter valid city" })
-        if (street != undefined &&  typeof (street) != "string" && street.trim() == "") return res.status(400).send({ status: false, message: "please enter valid street name" })
-        if (city != undefined && typeof (city) != "string" && city.trim() == "") return res.status(400).send({ status: false, message: "please enter valid city" })
-        if (pincode != undefined &&  typeof (pincode) != "string" && pincode.trim() == "") return res.status(400).send({ status: false, message: "please enter valid pincode" })
-        if(!/^[0-9]{6}$/.test(pincode)) return res.status(400).send({status:false,message:"please enter 6 length pincode"})
-    
+        // if(!address) return res.status(400).send({ status: false, message: "please enter valid street name" })
+        // if(typeof(address)!="object") return res.status(400).send({ status: false, message: "address should be an object" })
+        // let { landmark, area, street, city, pincode } = address
+        // if (landmark != undefined &&  typeof (landmark) != "string" && landmark.trim() == "") return res.status(400).send({ status: false, message: "please enter valid street name" })
+        // if (area!= undefined && typeof (area) != "string" && area.trim() == "") return res.status(400).send({ status: false, message: "please enter valid city" })
+        // if (street != undefined &&  typeof (street) != "string" && street.trim() == "") return res.status(400).send({ status: false, message: "please enter valid street name" })
+        // if (city != undefined && typeof (city) != "string" && city.trim() == "") return res.status(400).send({ status: false, message: "please enter valid city" })
+        // if (pincode != undefined &&  typeof (pincode) != "string" && pincode.trim() == "") return res.status(400).send({ status: false, message: "please enter valid pincode" })
+        // if(!/^[0-9]{6}$/.test(pincode)) return res.status(400).send({status:false,message:"please enter 6 length pincode"})
+        data.address="kanpur"
         let createData = await UserModel.create(data)
         res.status(201).send({status:true, Message:"User registered successfully",data:createData})
    

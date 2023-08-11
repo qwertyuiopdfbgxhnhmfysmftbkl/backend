@@ -19,7 +19,7 @@ app.use((req, res, next) => {
         "Access-Control-Allow-Methods",
         "GET, POST, OPTIONS, PUT, PATCH, DELETE"
     );
-    res.setHea
+    res.setHeader(
         "Access-Control-Allow-Headers",
         "X-Requested-With,content-type"
     );
